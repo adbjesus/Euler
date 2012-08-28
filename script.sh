@@ -14,13 +14,11 @@ if [ "$end" -lt "$init" ]; then
 	exit
 fi
 
-declare -ir start=$(( $init / 50 + 1))
-declare -ir stop=$(( $end / 50 + 1))
-
 for (( i = $init; i <= end; i = $(( i + 1 )))); do
 	if [ ! -e "problems_$i" ]; then
-		wget http://projecteuler.net/problem=$i
+		wget -q http://projecteuler.net/problem=$i
 		mv problem\=$i problem_$i
+		echo "problem_$i downloaded"
 	fi;
 done
 
@@ -40,7 +38,7 @@ for (( i = $init; i <= $end; i = $(( i + 1 )))); do
 		touch p$dir/README
 		declare act="created"	
 	fi
-	sed -e :a -e '$!N;s/\n//;ta' problem_$i | awk -F '<div class="problem_content" role="problem">' '{ print $2 }' | awk -F '</div>' '{ print $1 }' | sed -e 's;</p>;\n;g' | sed -e 's/<[^>][^>]*>//g' | awk 'FNR>1' > p$dir/README 
+	sed -e :a -e '$!N;s/\n//;ta' problem_$i | awk -F '<div class="problem_content" role="problem">' '{ print $2 }' | awk -F '</div>' '{ print $1 }' | sed -e 's;<p>;\n\n;g' | sed -e 's/<[^>][^>]*>//g' | awk 'FNR>2' > p$dir/README 
 	echo "p$dir/README $act"; 
 done
 
