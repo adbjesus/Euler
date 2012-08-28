@@ -3,3 +3,5 @@ Directory for all my solutions to project Euler problems
 Folders are named as "p(number of problem)" for example p1 means problem 1, if it is a work in progress it will have a _WIP and the end, for example p1_WIP.
 
 Problems will mainly be solved in C/C++ altough some other language might be used
+
+There is also a bash script to create the directories for the problems and populate the README with the description of the problem, this will be updated and soon a --help option.
